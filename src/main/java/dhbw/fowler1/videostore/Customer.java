@@ -55,20 +55,11 @@ public class Customer {
         frequentRenterPoints = 0;
 
         String result = "Rental Record for " + getName() + "\n";
-<<<<<<< Updated upstream
-        double thisAmount = 0;
-        Rental each = (Rental) rentals.nextElement();
-
-        while (rentals.hasMoreElements()) {
-            thisAmount = 0;
-            each.nextElement();
-=======
 
         Enumeration<Rental> rentals = _rentals.elements();
 
         while (rentals.hasMoreElements()) {
             Rental each = (Rental) rentals.nextElement();
->>>>>>> Stashed changes
 
             totalAmount += amountCalculation(each);
             result += "\t" + each.getMovie().getTitle()+ "\t" +
