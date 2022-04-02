@@ -43,7 +43,6 @@ public class Customer {
 
     public String statement() {
         double totalAmount = 0;
-        int frequentRenterPoints = 0;
 
 
         Enumeration<Rental> rentals = _rentals.elements();
@@ -59,7 +58,7 @@ public class Customer {
         return output(totalAmount,null, false);
     }
 
-    public void getTotalRenterPoints() {
+    public int getTotalRenterPoints() {
         int total = 0;
         Enumeration<Rental> rentals = _rentals.elements();
 
@@ -67,6 +66,7 @@ public class Customer {
             Rental each = (Rental) rentals.nextElement();
             total += each.getRenterPoints();
         }
+        return total;
     }
 
     public void addRental(Rental arg) {
