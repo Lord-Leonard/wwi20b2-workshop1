@@ -22,6 +22,7 @@ public class Customer {
  */
     public String statement() {
         double totalAmount = 0;
+        int frequentRenterPoints = 0;
 
         totalAmount = Rental.totalAmount(_rentals.elements());
            
