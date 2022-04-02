@@ -1,5 +1,7 @@
 package dhbw.fowler1.videostore;
 
+import java.util.Enumeration;
+
 public class Rental {
     private Movie _movie;
     private int _daysRented;
@@ -31,21 +33,31 @@ public class Rental {
         return frequentRenterPoints;
     }
 
-    public double amountCalculation(Rental rental) {
+    public static double totalAmount(Enumeration<Rental> rentals){
+        double totalAmount = 0;
+        while (rentals.hasMoreElements()){
+            Rental each = rentals.nextElement();
+            totalAmount += each.amountCalculation();
+            Customer.output(each.getThisAmount(), each, true);
+        }
+        return totalAmount;
+    }
+
+    public double amountCalculation() {
         // determine amount for each line
-        switch (rental.getMovie().getPriceCode()) {
+        switch (getMovie().getPriceCode()) {
             case Movie.REGULAR:
                 thisAmount += 2;
-                if (rental.getDaysRented() > 2)
-                    thisAmount += (rental.getDaysRented() - 2) * 1.5;
+                if (getDaysRented() > 2)
+                    thisAmount += (getDaysRented() - 2) * 1.5;
                 break;
             case Movie.NEW_RELEASE:
-                thisAmount += rental.getDaysRented() * 3;
+                thisAmount += getDaysRented() * 3;
                 break;
             case Movie.CHILDRENS:
                 thisAmount += 1.5;
-                if (rental.getDaysRented() > 3)
-                    thisAmount += (rental.getDaysRented() - 3) * 1.5;
+                if (getDaysRented() > 3)
+                    thisAmount += (getDaysRented() - 3) * 1.5;
                 
                 break;
         }

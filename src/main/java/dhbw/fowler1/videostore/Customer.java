@@ -7,13 +7,13 @@ import java.util.Vector;
 public class Customer {
     private String _name;
     private Vector<Rental> _rentals = new Vector<Rental>();
-    private String output;
     
-    private int frequentRenterPoints;
+    static String output;
+    static int frequentRenterPoints;
 
     public Customer(String name) {
         _name = name;
-        output = "";
+        output = "Rental Record for " + getName() + "\n";
     }
 
 
@@ -24,18 +24,10 @@ public class Customer {
 
         Enumeration<Rental> rentals = _rentals.elements();
 
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-
-            totalAmount += each.amountCalculation(each);
+        totalAmount = Rental.totalAmount(rentals);
            
-            frequentRenterPoints += each.getRenterPoints();
+        // frequentRenterPoints += each.getRenterPoints();
 
-            output(each.getThisAmount(), each, true);
-
-        }
-
-    
         return output(totalAmount,null, false);
     }
 
@@ -47,10 +39,7 @@ public class Customer {
         return _name;
     }
 
-    public String output(double amount, Rental each, Boolean value) {
-        if (output.equals("")) 
-            output = "Rental Record for " + getName() + "\n";
-
+    public static String output(double amount, Rental each, Boolean value) {
         if (value){
             output += "\t" + each.getMovie().getTitle()+ "\t" +
                 String.valueOf(amount) + "\n";
