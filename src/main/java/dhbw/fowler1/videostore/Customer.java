@@ -17,9 +17,12 @@ public class Customer {
         int frequentRenterPoints = 0;
         Enumeration rentals = _rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
+        double thisAmount = 0;
+        Rental each = (Rental) rentals.nextElement();
+
         while (rentals.hasMoreElements()) {
-            double thisAmount = 0;
-            Rental each = (Rental) rentals.nextElement();
+            thisAmount = 0;
+            each.nextElement();
 
             // determine amount for each line
             switch (each.getMovie().getPriceCode()) {
