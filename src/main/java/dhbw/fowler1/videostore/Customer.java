@@ -64,8 +64,8 @@ public class Customer {
         Enumeration<Rental> rentals = _rentals.elements();
 
         while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement();
             total += each.getRenterPoints();
-            rentals.nextElement();    
         }
     }
 
