@@ -40,19 +40,10 @@ public class Customer {
         return thisAmount;
     }
 
-    public int frpCalculation(Rental rental){
-        int frequentRenterPoints = 0;
-        frequentRenterPoints ++;
-        // add bonus for a two day new release rental
-        if ((rental.getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
-        rental.getDaysRented() > 1) frequentRenterPoints ++;
-
-        return frequentRenterPoints;
-    }
 
     public String statement() {
         double totalAmount = 0;
-        frequentRenterPoints = 0;
+        int frequentRenterPoints = 0;
 
 
         Enumeration<Rental> rentals = _rentals.elements();
@@ -62,8 +53,7 @@ public class Customer {
 
             totalAmount += amountCalculation(each);
            
-
-            frequentRenterPoints += frpCalculation(each);
+            frequentRenterPoints += each.getRenterPoints();
 
         }
 
