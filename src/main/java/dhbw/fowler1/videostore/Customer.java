@@ -7,37 +7,13 @@ import java.util.Vector;
 public class Customer {
     private String _name;
     private Vector<Rental> _rentals = new Vector<Rental>();
-    private String output;
     
-    private int frequentRenterPoints;
+    static String output;
+    static int frequentRenterPoints;
 
     public Customer(String name) {
         _name = name;
-        output = "";
-    }
-
-    public double amountCalculation(Rental rental) {
-        // determine amount for each line
-        double thisAmount = 0;
-        switch (rental.getMovie().getPriceCode()) {
-            case Movie.REGULAR:
-                thisAmount += 2;
-                if (rental.getDaysRented() > 2)
-                    thisAmount += (rental.getDaysRented() - 2) * 1.5;
-                output(thisAmount, rental, true);
-                break;
-            case Movie.NEW_RELEASE:
-                thisAmount += rental.getDaysRented() * 3;
-                output(thisAmount, rental, true);
-                break;
-            case Movie.CHILDRENS:
-                thisAmount += 1.5;
-                if (rental.getDaysRented() > 3)
-                    thisAmount += (rental.getDaysRented() - 3) * 1.5;
-                output(thisAmount, rental, true);
-                break;
-        }
-        return thisAmount;
+        output = "Rental Record for " + getName() + "\n";
     }
 
 
@@ -47,14 +23,10 @@ public class Customer {
 
         Enumeration<Rental> rentals = _rentals.elements();
 
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
+        totalAmount = Rental.totalAmount(rentals);
+           
+        // frequentRenterPoints += each.getRenterPoints();
 
-            totalAmount += amountCalculation(each);
-
-        }
-
-    
         return output(totalAmount,null, false);
     }
 
@@ -77,10 +49,7 @@ public class Customer {
         return _name;
     }
 
-    public String output(double amount, Rental each, Boolean value) {
-        if (output.equals("")) 
-            output = "Rental Record for" + getName() + "\n";
-
+    public static String output(double amount, Rental each, Boolean value) {
         if (value){
             output += "\t" + each.getMovie().getTitle()+ "\t" +
                 String.valueOf(amount) + "\n";
