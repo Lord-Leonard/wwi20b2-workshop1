@@ -33,6 +33,11 @@ public class Rental {
         return frequentRenterPoints;
     }
 
+    /***
+     * Berechnet den gesamten zu zahlenden Betrag angand der Liste an ausgeliehenen Filmen
+     * @param rentals alle ausgeliehenen Filme
+     * @return Gesamten zu zahlenden Betrag (double)
+     */
     public static double totalAmount(Enumeration<Rental> rentals){
         double totalAmount = 0;
         while (rentals.hasMoreElements()){
@@ -43,6 +48,10 @@ public class Rental {
         return totalAmount;
     }
 
+    /***
+     * Berechnet die Kosten für einen Film anhand der Ausleihdauer
+     * @return Preis
+     */
     public double amountCalculation() {
         // determine amount for each line
         switch (getMovie().getPriceCode()) {

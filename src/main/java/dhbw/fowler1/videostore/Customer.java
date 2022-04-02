@@ -16,7 +16,10 @@ public class Customer {
         output = "Rental Record for " + getName() + "\n";
     }
 
-
+/**
+ * Diese Methode erstellt einen Outpustring mit dem Namen des Nutzers, den Ausgeliehenen Filmen, dem geschuldeten Betrag und den Treuepunkten.
+ * @return Outputstring
+ */
     public String statement() {
         double totalAmount = 0;
         int frequentRenterPoints = 0;
@@ -26,6 +29,17 @@ public class Customer {
         // frequentRenterPoints += each.getRenterPoints();
 
         return output(totalAmount,null, false);
+    }
+    
+    public int getTotalRenterPoints() {
+        int total = 0;
+        Enumeration<Rental> rentals = _rentals.elements();
+
+        while (rentals.hasMoreElements()) {
+            Rental each = (Rental) rentals.nextElement();
+            total += each.getRenterPoints();
+        }
+        return total;
     }
 
     public void addRental(Rental arg) {
