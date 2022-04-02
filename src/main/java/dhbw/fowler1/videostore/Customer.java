@@ -19,26 +19,13 @@ public class Customer {
 
     public String statement() {
         double totalAmount = 0;
+        int frequentRenterPoints = 0;
 
-
-        Enumeration<Rental> rentals = _rentals.elements();
-
-        totalAmount = Rental.totalAmount(rentals);
+        totalAmount = Rental.totalAmount(_rentals.elements());
            
         // frequentRenterPoints += each.getRenterPoints();
 
         return output(totalAmount,null, false);
-    }
-
-    public int getTotalRenterPoints() {
-        int total = 0;
-        Enumeration<Rental> rentals = _rentals.elements();
-
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            total += each.getRenterPoints();
-        }
-        return total;
     }
 
     public void addRental(Rental arg) {
