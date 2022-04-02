@@ -16,30 +16,6 @@ public class Customer {
         output = "";
     }
 
-    public double amountCalculation(Rental rental) {
-        // determine amount for each line
-        double thisAmount = 0;
-        switch (rental.getMovie().getPriceCode()) {
-            case Movie.REGULAR:
-                thisAmount += 2;
-                if (rental.getDaysRented() > 2)
-                    thisAmount += (rental.getDaysRented() - 2) * 1.5;
-                output(thisAmount, rental, true);
-                break;
-            case Movie.NEW_RELEASE:
-                thisAmount += rental.getDaysRented() * 3;
-                output(thisAmount, rental, true);
-                break;
-            case Movie.CHILDRENS:
-                thisAmount += 1.5;
-                if (rental.getDaysRented() > 3)
-                    thisAmount += (rental.getDaysRented() - 3) * 1.5;
-                output(thisAmount, rental, true);
-                break;
-        }
-        return thisAmount;
-    }
-
 
     public String statement() {
         double totalAmount = 0;
@@ -51,9 +27,11 @@ public class Customer {
         while (rentals.hasMoreElements()) {
             Rental each = (Rental) rentals.nextElement();
 
-            totalAmount += amountCalculation(each);
+            totalAmount += each.amountCalculation(each);
            
             frequentRenterPoints += each.getRenterPoints();
+
+            output(each.getThisAmount(), each, true);
 
         }
 
@@ -71,7 +49,7 @@ public class Customer {
 
     public String output(double amount, Rental each, Boolean value) {
         if (output.equals("")) 
-            output = "Rental Record for" + getName() + "\n";
+            output = "Rental Record for " + getName() + "\n";
 
         if (value){
             output += "\t" + each.getMovie().getTitle()+ "\t" +
