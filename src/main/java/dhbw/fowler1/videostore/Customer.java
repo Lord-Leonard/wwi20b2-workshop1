@@ -8,7 +8,7 @@ public class Customer {
     private String _name;
     private Vector<Rental> _rentals = new Vector<Rental>();
     private String output;
-    private double totalAmount;
+    
     private int frequentRenterPoints;
 
     public Customer(String name) {
@@ -24,17 +24,17 @@ public class Customer {
                 thisAmount += 2;
                 if (rental.getDaysRented() > 2)
                     thisAmount += (rental.getDaysRented() - 2) * 1.5;
-                output(thisAmount, rental);
+                output(thisAmount, rental, true);
                 break;
             case Movie.NEW_RELEASE:
                 thisAmount += rental.getDaysRented() * 3;
-                output(thisAmount, rental);
+                output(thisAmount, rental, true);
                 break;
             case Movie.CHILDRENS:
                 thisAmount += 1.5;
                 if (rental.getDaysRented() > 3)
                     thisAmount += (rental.getDaysRented() - 3) * 1.5;
-                output(thisAmount, rental);
+                output(thisAmount, rental, true);
                 break;
         }
         return thisAmount;
@@ -51,10 +51,9 @@ public class Customer {
     }
 
     public String statement() {
-        totalAmount = 0;
+        double totalAmount = 0;
         frequentRenterPoints = 0;
 
-        String result = "Rental Record for " + getName() + "\n";
 
         Enumeration<Rental> rentals = _rentals.elements();
 
@@ -62,19 +61,14 @@ public class Customer {
             Rental each = (Rental) rentals.nextElement();
 
             totalAmount += amountCalculation(each);
-            result += "\t" + each.getMovie().getTitle()+ "\t" +
-                String.valueOf(amountCalculation(each)) + "\n";
+           
 
             frequentRenterPoints += frpCalculation(each);
 
         }
 
-        //add footer lines
-        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-        result += "You earned " + String.valueOf(frequentRenterPoints) +
-                " frequent renter points";
-        
-        return result;
+    
+        return output(totalAmount,null, false);
     }
 
     public void addRental(Rental arg) {
@@ -93,7 +87,7 @@ public class Customer {
             output += "\t" + each.getMovie().getTitle()+ "\t" +
                 String.valueOf(amount) + "\n";
         }else {
-            output += "Amount owed is " + String.valueOf(totalAmount) + "\n";
+            output += "Amount owed is " + String.valueOf(amount) + "\n";
             output += "You earned " + String.valueOf(frequentRenterPoints) +
                 " frequent renter points"; 
         }
