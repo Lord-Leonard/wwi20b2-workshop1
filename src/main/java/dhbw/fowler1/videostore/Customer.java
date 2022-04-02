@@ -52,13 +52,21 @@ public class Customer {
             Rental each = (Rental) rentals.nextElement();
 
             totalAmount += amountCalculation(each);
-           
-            frequentRenterPoints += each.getRenterPoints();
 
         }
 
     
         return output(totalAmount,null, false);
+    }
+
+    public void getTotalRenterPoints() {
+        int total = 0;
+        Enumeration<Rental> rentals = _rentals.elements();
+
+        while (rentals.hasMoreElements()) {
+            total += each.getRenterPoints();
+            rentals.nextElement();    
+        }
     }
 
     public void addRental(Rental arg) {
