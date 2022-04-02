@@ -85,16 +85,20 @@ public class Customer {
         return _name;
     }
 
-    public String output(double amount, Rental each) {
+    public String output(double amount, Rental each, Boolean value) {
         if (output.equals("")) 
             output = "Rental Record for" + getName() + "\n";
-        output += "\t" + each.getMovie().getTitle()+ "\t" +
+
+        if (value){
+            output += "\t" + each.getMovie().getTitle()+ "\t" +
                 String.valueOf(amount) + "\n";
-        if (each.hasMoreElements != true) {
+        }else {
             output += "Amount owed is " + String.valueOf(totalAmount) + "\n";
             output += "You earned " + String.valueOf(frequentRenterPoints) +
                 " frequent renter points"; 
         }
+
+        return output;
 
     }
 }
