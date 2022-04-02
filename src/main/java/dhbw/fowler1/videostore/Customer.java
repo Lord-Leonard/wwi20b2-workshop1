@@ -7,9 +7,13 @@ import java.util.Vector;
 public class Customer {
     private String _name;
     private Vector<Rental> _rentals = new Vector<Rental>();
+    private String output;
+    private double totalAmount;
+    private int frequentRenterPoints;
 
     public Customer(String name) {
         _name = name;
+        output = "";
     }
 
     public double amountCalculation(Rental rental) {
@@ -20,14 +24,17 @@ public class Customer {
                 thisAmount += 2;
                 if (rental.getDaysRented() > 2)
                     thisAmount += (rental.getDaysRented() - 2) * 1.5;
+                output(thisAmount, rental);
                 break;
             case Movie.NEW_RELEASE:
                 thisAmount += rental.getDaysRented() * 3;
+                output(thisAmount, rental);
                 break;
             case Movie.CHILDRENS:
                 thisAmount += 1.5;
                 if (rental.getDaysRented() > 3)
                     thisAmount += (rental.getDaysRented() - 3) * 1.5;
+                output(thisAmount, rental);
                 break;
         }
         return thisAmount;
@@ -44,8 +51,8 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
+        totalAmount = 0;
+        frequentRenterPoints = 0;
 
         String result = "Rental Record for " + getName() + "\n";
 <<<<<<< Updated upstream
@@ -85,5 +92,18 @@ public class Customer {
 
     public String getName() {
         return _name;
+    }
+
+    public String output(double amount, Rental each) {
+        if (output.equals("")) 
+            output = "Rental Record for" + getName() + "\n";
+        output += "\t" + each.getMovie().getTitle()+ "\t" +
+                String.valueOf(amount) + "\n";
+        if (each.hasMoreElements != true) {
+            output += "Amount owed is " + String.valueOf(totalAmount) + "\n";
+            output += "You earned " + String.valueOf(frequentRenterPoints) +
+                " frequent renter points"; 
+        }
+
     }
 }
